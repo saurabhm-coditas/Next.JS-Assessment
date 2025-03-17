@@ -32,7 +32,7 @@ export default function Home() {
 
   return (
     <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Welcome to the Coditas</h1>
+      <h1 className="text-2xl font-bold mb-4">Welcome to the Assessment</h1>
       <Link
         href="/posts"
         className="text-blue-500 hover:text-blue-700 underline"
