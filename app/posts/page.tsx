@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Table from "../../components/Table";
 
-export default function Home() {
+export default function PostsPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -12,10 +12,9 @@ export default function Home() {
       try {
         const response = await fetch("/api/users");
         if (!response.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error("Failed to fetch posts");
         }
         const result = await response.json();
-        console.log(data);
         setData(result);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred");
@@ -27,18 +26,13 @@ export default function Home() {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="p-4">Loading posts...</div>;
+  if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
 
   return (
-    <main className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Welcome to the Coditas</h1>
-      <Link
-        href="/posts"
-        className="text-blue-500 hover:text-blue-700 underline"
-      >
-        View All Posts
-      </Link>
-    </main>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Posts List</h1>
+      <Table data={data} />
+    </div>
   );
 }
